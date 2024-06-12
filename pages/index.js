@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import HeadComponent from '../components/Head';
 
 const TWITTER_HANDLE = "web3dev_";
@@ -9,7 +10,7 @@ const App = () => {
   const { connect, connected } = useWallet();
 
   const handleConnectWallet = useCallback(() => {
-    connect();
+    connect().catch(() => {});
   }, [connect]);
 
   return (
@@ -24,9 +25,7 @@ const App = () => {
         <main>
           <img className='gif-image' src="https://media.tenor.com/1mJ-tJSzvwsAAAAd/solana-sol.gif" alt="emoji" />
           {!connected && (
-            <button className="connect-wallet-button" onClick={handleConnectWallet}>
-              Connect Wallet
-            </button>
+            <WalletMultiButton className="connect-wallet-button" />
           )}
         </main>
 
@@ -42,9 +41,6 @@ const App = () => {
       </div>
     </div>
   );
-};
-
-export default App;
 };
 
 export default App;
