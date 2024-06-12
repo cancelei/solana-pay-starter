@@ -1,18 +1,13 @@
-import React from "react";
-import App from "next/app";
-import WalletProviderSetup from "../components/WalletProvider";
-import "../styles/globals.css";
-import "../styles/App.css";
+import WalletProvider from '../components/WalletProvider';
+import '../styles/globals.css';
 
-class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-      <WalletProviderSetup>
-        <Component {...pageProps} />
-      </WalletProviderSetup>
-    );
-  }
+function MyApp({ Component, pageProps }) {
+  return (
+    <WalletProvider>
+      <Component {...pageProps} />
+    </WalletProvider>
+  );
 }
 
 export default MyApp;
+
