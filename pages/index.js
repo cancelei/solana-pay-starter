@@ -1,43 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import HeadComponent from '../components/Head';
 
-// Constantes
 const TWITTER_HANDLE = "web3dev_";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-  const { publicKey } = useWallet();
+  const { connect, connected } = useWallet();
 
-  useEffect(() => {
-    // Client-side only code here
-  }, []);
-
-  const renderNotConnectedContainer = () => (
-    <div>
-      <img
-        src="https://media.tenor.com/1mJ-tJSzvwsAAAAd/solana-sol.gif"
-        alt="emoji"
-      />
-
-      <div className="button-container">
-        <WalletMultiButton className="cta-button connect-wallet-button" />
-      </div>
-    </div>
-  );
+  const handleConnectWallet = useCallback(() => {
+    connect();
+  }, [connect]);
 
   return (
     <div className="App">
+      <HeadComponent/>
       <div className="container">
         <header className="header-container">
           <p className="header"> 😳 Loja de emojis 😈</p>
-          <p className="sub-text">
-            A única loja de emojis que aceita shitcoins
-          </p>
+          <p className="sub-text">A única loja de emojis que aceita shitcoins</p>
         </header>
 
-        <main>{publicKey ? "Conectado!" : renderNotConnectedContainer()}</main>
+        <main>
+          <img className='gif-image' src="https://media.tenor.com/1mJ-tJSzvwsAAAAd/solana-sol.gif" alt="emoji" />
+          {!connected && (
+            <button className="connect-wallet-button" onClick={handleConnectWallet}>
+              Connect Wallet
+            </button>
+          )}
+        </main>
 
+        <div className="footer-container">
+          <img alt="Twitter Logo" className="twitter-logo" src="twitter-logo.svg" />
+          <a
+            className="footer-text"
+            href={TWITTER_LINK}
+            target="_blank"
+            rel="noreferrer"
+          >{`contruido na @${TWITTER_HANDLE}`}</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
         <div className="footer-container">
           <img
             alt="Twitter Logo"
