@@ -90,9 +90,10 @@ button:disabled {
 
 .footer-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+.twitter-logo {
+  width: 35px;
+  height: 35px;
+}
   bottom: 0 px;
   width: 100%;
   bottom: 0;
